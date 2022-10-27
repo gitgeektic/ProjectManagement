@@ -1,0 +1,57 @@
+@startuml 修正需求
+skinparam defaultFontName "Noto Sans Mono CJK TC"
+actor 客戶 as c
+actor 團隊 as t
+collections 會議與需求正本 as mrf
+collections 會議與需求副本 as mrfc
+collections 專案管理總表 as pm
+c->t:提出新需求\n(via LINE/Phone/Meeting)
+alt 修正需求
+' note over mrf, mrfc: Excel
+t -> mrf: 建立修正需求文件
+t -> mrfc: 複製副本，並新增客戶編輯權限
+c -> mrfc: 共同編輯副本，客戶確認   
+t -> mrfc: 移除客戶編輯權限，並擬定完成時間
+    alt 判定含有新功能
+        t -> mrfc:獨立該新功能項目，\n走新功能需求流程
+    end
+c-> mrfc: 檢視、監看
+end
+t-> pm: 新增一筆追蹤項目，指派負責人
+@enduml
+
+@startuml 新功能需求
+skinparam defaultFontName "Noto Sans Mono CJK TC"
+actor 客戶 as c
+actor 團隊 as t
+collections 需求分析文件 as ra
+collections 技達專案管理 as gtcp
+collections 其他工作 as ot
+c->t:提出新需求\n(via LINE/Phone/Meeting)
+alt 新功能需求
+t -> ra: 建立Typora需求釐清文件(初版)
+    loop 直到客戶say YES
+    t -> ra: Typora需求釐清文件(2版、3版...)
+    t -> ra: 客戶確認大方向正確
+    end
+t-> gtcp: 該專案PM管理、建立專案資料夾
+t -> ot: 擬定時程表、報價、實作...
+end
+
+@enduml
+
+@startuml 專案管理總表
+skinparam defaultFontName "Noto Sans Mono CJK TC"
+actor PM as pm
+actor 團隊 as t
+collections 專案管理總表 as exl
+t-> exl: 隨時更新
+pm-> exl: 整理、I AM WATCHING YOU!
+@enduml
+
+@startuml 小小速速需求
+skinparam defaultFontName "Noto Sans Mono CJK TC"
+actor 團隊 as t
+collections 專案管理總表 as exl
+t -> exl: 直接添加項目
+@enduml
